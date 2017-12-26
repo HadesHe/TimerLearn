@@ -43,9 +43,23 @@ class StringTipsTest {
 
     fun String.lastChar(): Char=this.get(this.length-1)
 
+
+
     @Test
     fun testFunExtension(){
-        val str="test function fun"
-        println(str.lastChar())
+//        val str="test function fun"
+//        println(str.lastChar())
+        fun testIf()= if(false) 1 else null
+        println(testIf())
+    }
+
+    @Test
+    fun testIfFunction() {
+        if(true){
+            println("1")
+        }else{
+            println("2")
+        }
+        println(3)
     }
 }
