@@ -91,4 +91,25 @@ class StringTipsTest {
 //   public inline fun <T, R> with(receiver: T) {block: T.() → R}: R
 //   public inline fun <T, R> with(receiver: T, block: T.() → R): R
 
+    enum class Delivery{
+        STANDARD, EXPEROTED
+    }
+
+    fun getShippingConstCalculator(delivery: Delivery): (Int) -> Double{
+        if(delivery == Delivery.EXPEROTED){
+            return {it -> 6+2.1*it}
+        }
+        return {it->1.3 * it}
+    }
+
+    @Test
+    fun test05(){
+        val calculator1 = getShippingConstCalculator(Delivery.EXPEROTED)
+        val calculator2 = getShippingConstCalculator(Delivery.STANDARD)
+        println("Ex costs ${calculator1(5)}")
+        println("Ex costs ${calculator2(5)}")
+
+    }
+
 }
+
