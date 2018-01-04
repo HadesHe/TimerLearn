@@ -111,5 +111,45 @@ class StringTipsTest {
 
     }
 
+    class Worker(private val strategy: () -> Unit){
+        fun work(){
+            println("START")
+            strategy.invoke()
+            println("END")
+        }
+    }
+
+    @Test
+    fun testStrategy(){
+//        val worker1=Worker({ println("Do A Strategy")})
+//        val worker2=Worker({ println("Do B Strategy")})
+//
+//        worker1.work()
+//        worker2.work()
+
+        var user:User?=null
+
+        user?: println("null")
+    }
+
+    fun <T> T?.safety(action:T.() -> Any?) = try {
+        this?.action()
+    }catch (ex:Exception){
+        ex.printStackTrace()
+    }
+
+    fun <T,R> T?.safetyRun(action: T.() -> R) : R? = try {
+        this?.action()
+    }catch (ex :Exception){
+        ex.printStackTrace()
+        null
+    }
+
+
+
+
+
+
+
 }
 
