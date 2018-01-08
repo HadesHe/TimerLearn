@@ -1,8 +1,9 @@
-package com.hzjytech.hades.timerlearn
+package com.hzjytech.hades.timerlearn.tasks
 
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import com.hzjytech.hades.timerlearn.R
 import com.hzjytech.hades.timerlearn.util.setupActionBar
 
 /**
