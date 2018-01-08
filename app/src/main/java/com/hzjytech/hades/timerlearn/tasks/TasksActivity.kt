@@ -21,7 +21,7 @@ class TasksActivity: AppCompatActivity() {
 
         }
 
-        drawerTasks=findViewById<DrawerLayout>(R.id.drawerTasks)
+//        drawerTasks=findViewById<DrawerLayout>(R.id.drawerTasks)
 
 
     }

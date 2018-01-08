@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import com.hzjytech.hades.timerlearn.R
 
 /**
@@ -16,6 +17,12 @@ class TasksFragment: Fragment(),TasksContract.View{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root=inflater.inflate(R.layout.fragment_tasks,container,false)
+
+        with(root){
+            val listView =findViewById<ListView>(R.id.lvTasksFrag).apply {
+              adapter=listAdapter
+            }
+        }
 
 
 
