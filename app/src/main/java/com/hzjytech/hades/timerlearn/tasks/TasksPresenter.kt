@@ -5,7 +5,7 @@ import com.hzjytech.hades.timerlearn.data.Task
 /**
  * Created by zhanghehe on 2018/1/13.
  */
-class TasksPresenter:TasksContract.Presenter{
+class TasksPresenter(val tasksRepository:TasksRepository, val tasksView:TasksContract.View ):TasksContract.Presenter{
     override fun start() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
