@@ -1,5 +1,6 @@
 package com.hzjytech.hades.timerlearn.data.source.remote
 
+import android.os.Handler
 import com.hzjytech.hades.timerlearn.data.Task
 import com.hzjytech.hades.timerlearn.data.source.TasksDataSource
 
@@ -12,7 +13,7 @@ object TasksRemoteDataSource:TasksDataSource{
 
     init {
         addTask("Build tower in Pisa","Ground looks good, no founation work required")
-        addTask("Build tower in Pisa","Ground looks good, no founation work required")
+        addTask("Finish bridge in Tacoma","Found awesine girders at half the cost")
 
     }
 
@@ -20,20 +21,37 @@ object TasksRemoteDataSource:TasksDataSource{
         val newTask=Task(title,description)
         TASKS_SERVICE_DATA.put(newTask.id,newTask)
     }
+
+    private val SERVICE_LATENCY_IN_MILLIS: Long = 5000L
+
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        val tasks=TASKS_SERVICE_DATA.values.toList()
+        Handler().postDelayed({
+            callback.onTasksLoaded(tasks)
+        },SERVICE_LATENCY_IN_MILLIS)
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val task= TASKS_SERVICE_DATA[taskId]
+        with(Handler()){
+            if(task != null){
+                postDelayed({callback.onTaskLoaded(task)}, SERVICE_LATENCY_IN_MILLIS)
+            }else{
+                postDelayed({callback.onDataNotAvailable()}, SERVICE_LATENCY_IN_MILLIS)
+            }
+        }
     }
 
-    override fun saveTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveTask(taskId:Task) {
+        TASKS_SERVICE_DATA.put(taskId.id,taskId)
     }
 
     override fun completeTask(task: Task) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val completedTask=Task(task.title,task.description,task.id).apply {
+            isCompleted=true
+        }
+        TASKS_SERVICE_DATA.put(task.id,completedTask)
     }
 
     override fun completeTask(taskId: String) {
@@ -41,19 +59,22 @@ object TasksRemoteDataSource:TasksDataSource{
     }
 
     override fun activateTask(task: Task) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val activeTaks=Task(task.title,task.description,task.id)
+        TASKS_SERVICE_DATA.put(task.id,activeTaks)
     }
 
     override fun clearCompletedTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TASKS_SERVICE_DATA= TASKS_SERVICE_DATA.filterValues {
+            !it.isCompleted
+        } as LinkedHashMap<String, Task>
     }
 
     override fun deleteAllTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TASKS_SERVICE_DATA.clear()
     }
 
     override fun deleteTask(taskId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TASKS_SERVICE_DATA.remove(taskId)
     }
 
 }

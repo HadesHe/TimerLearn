@@ -23,7 +23,7 @@ interface TasksDataSource{
 
     fun getTask(taskId:String,callback: GetTaskCallback)
 
-    fun saveTask(taskId:String,callback: GetTaskCallback)
+    fun saveTask(task:Task)
 
     fun completeTask(task:Task)
 
