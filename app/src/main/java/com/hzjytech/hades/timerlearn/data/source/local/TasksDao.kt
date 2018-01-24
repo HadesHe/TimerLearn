@@ -11,7 +11,7 @@ import com.hzjytech.hades.timerlearn.data.Task
     @Query("SELECT * FROM Tasks") fun getTasks():List<Task>
 
 
-    @Query("select * from Tasks where entryid=:taskId")fun getTaskById(taskId: Task):Task?
+    @Query("select * from Tasks where entryid=:taskId")fun getTaskById(taskId: String):Task?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun insertTask(task:Task)
 
