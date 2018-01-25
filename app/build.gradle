@@ -22,7 +22,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        mock {
+            applicationIdSuffix = ".mock"
+            dimension "default"
+
+        }
+
+        prod {
+            dimension "default"
+
+        }
+    }
+
+    android.variantFilter { variant ->
+
+        if (variant.buildType.name == 'release'
+                && variant.flavors[0].name == 'mock') {
+            variant.ignore = true
+        }
+
+    }
+
+    testOptions.unitTests.all{
+        testLogging{
+            events 'passed','skipped','failed','standardOut','standardError'
+        }
+    }
 }
+
+
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

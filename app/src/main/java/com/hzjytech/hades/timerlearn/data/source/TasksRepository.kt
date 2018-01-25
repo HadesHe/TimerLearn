@@ -7,7 +7,7 @@ import com.hzjytech.hades.timerlearn.data.source.remote.TasksRemoteDataSource
 /**
  * Created by zhanghehe on 2018/1/16.
  */
-class TasksRepository(
+public class TasksRepository(
         val taskRemoteDataSource: TasksRemoteDataSource,
         val tasksLocalDataSource: TasksLocalDataSource
 ):TasksDataSource{
