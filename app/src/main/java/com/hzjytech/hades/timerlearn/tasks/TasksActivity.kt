@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.hzjytech.hades.timerlearn.Injection
 import com.hzjytech.hades.timerlearn.R
 import com.hzjytech.hades.timerlearn.util.replaceFragmentInActivity
 import com.hzjytech.hades.timerlearn.util.setupActionBar
@@ -38,7 +39,7 @@ class TasksActivity : AppCompatActivity() {
 
         }
 
-        tasksPresenter=TasksPresenter(tasksFragment).apply {
+        tasksPresenter=TasksPresenter(Injection.provideTasksRepository(applicationContext),tasksFragment).apply {
             if (savedInstanceState != null) {
                 currentFiltering=savedInstanceState.getSerializable(CURRENT_FILTERING_KEY) as TasksFilterType
             }

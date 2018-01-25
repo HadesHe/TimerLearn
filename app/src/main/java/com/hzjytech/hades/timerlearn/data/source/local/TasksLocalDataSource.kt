@@ -79,9 +79,9 @@ class TasksLocalDataSource private constructor(
     }
 
     companion object {
-        private var INSTANCE:TasksDataSource?=null
+        private var INSTANCE:TasksLocalDataSource?=null
 
-        fun getInstance(appExecutor: AppExecutors,tasksDao: TasksDao):TasksDataSource{
+        fun getInstance(appExecutor: AppExecutors,tasksDao: TasksDao):TasksLocalDataSource{
             if(INSTANCE==null){
                 synchronized(TasksDataSource::javaClass){
                     INSTANCE=TasksLocalDataSource(appExecutor,tasksDao)
