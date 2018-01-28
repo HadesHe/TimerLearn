@@ -8,6 +8,13 @@ import com.hzjytech.hades.timerlearn.data.source.TasksDataSource
  * Created by zhanghehe on 2018/1/17.
  */
 object TasksRemoteDataSource:TasksDataSource{
+    override fun activateTask(taskId: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun refreshTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private var TASKS_SERVICE_DATA=LinkedHashMap<String,Task>(2)
 

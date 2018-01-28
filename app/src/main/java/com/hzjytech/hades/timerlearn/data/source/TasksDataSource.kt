@@ -31,7 +31,11 @@ interface TasksDataSource{
 
     fun activateTask(task:Task)
 
+    fun activateTask(taskId:String)
+
     fun clearCompletedTasks()
+
+    fun refreshTasks()
 
     fun deleteAllTasks()
 

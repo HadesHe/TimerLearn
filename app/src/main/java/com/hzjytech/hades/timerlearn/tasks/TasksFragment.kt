@@ -1,14 +1,17 @@
 package com.hzjytech.hades.timerlearn.tasks
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import android.widget.BaseAdapter
 import android.widget.ListView
 import com.hzjytech.hades.timerlearn.R
 import com.hzjytech.hades.timerlearn.data.Task
+import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.fragment_tasks.view.*
 import kotlinx.android.synthetic.main.task_item.view.*
 
@@ -16,6 +19,13 @@ import kotlinx.android.synthetic.main.task_item.view.*
  * Created by Hades on 2018/1/8.
  */
 class TasksFragment: Fragment(),TasksContract.View {
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+    override var isActive: Boolean= false
+        get() =isAdded
 
     override lateinit var presenter: TasksContract.Presenter
 
@@ -140,6 +150,71 @@ class TasksFragment: Fragment(),TasksContract.View {
         fun onActiviteTaskClick(task: Task)
         fun onTaskClick(task: Task)
 
+    }
+
+    override fun setLoadingIndicator(b: Boolean) {
+        val root=view?:return;
+
+        with(root.findViewById<SwipeRefreshLayout>(R.id.scrollTasksFrag)){
+            post {
+                isRefreshing=b
+            }
+
+        }
+    }
+
+    override fun showLoadingTasksError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTasks(tasks: List<Task>) {
+        listAdapter.tasks=tasks
+        llTasksFrag.visibility=View.VISIBLE
+        llTasksFragNoTasks.visibility=View.GONE
+    }
+
+    override fun showActiveFilterLable() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showCompletedFilterLable() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showAllFilterLabel() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNoActiveTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNoCompletedTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNoTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showAddTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTaskDetailsUi(id: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTaskMarkedComplete() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTaskMarkedActive() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showCompletedTasksCleared() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
 

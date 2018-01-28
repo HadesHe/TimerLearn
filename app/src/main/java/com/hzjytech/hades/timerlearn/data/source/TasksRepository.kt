@@ -11,6 +11,15 @@ public class TasksRepository(
         val taskRemoteDataSource: TasksRemoteDataSource,
         val tasksLocalDataSource: TasksLocalDataSource
 ):TasksDataSource{
+    override fun activateTask(taskId: String) {
+        getTaskWithId(taskId)?.let {
+            activateTask(it)
+        }
+    }
+
+    override fun refreshTasks() {
+        cacheIsDirty=true
+    }
 
     var cachedTasks:LinkedHashMap<String,Task> = LinkedHashMap()
 

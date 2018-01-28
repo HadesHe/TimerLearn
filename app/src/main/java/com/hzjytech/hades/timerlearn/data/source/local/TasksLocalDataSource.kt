@@ -12,6 +12,14 @@ class TasksLocalDataSource private constructor(
         val appExecutor: AppExecutors,
         val tasksDao: TasksDao
         ):TasksDataSource{
+    override fun activateTask(taskId: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun refreshTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
         appExecutor.diskIO.execute {
             val tasks=tasksDao.getTasks()
