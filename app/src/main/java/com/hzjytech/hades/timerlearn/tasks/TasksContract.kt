@@ -36,7 +36,7 @@ interface TasksContract{
         fun showAddTask()
         fun addNewTask()
         fun clearCompletedTasks()
-        fun showFilteringPopUpMenu()
+        var currentFiltering: TasksFilterType
 
     }
 }

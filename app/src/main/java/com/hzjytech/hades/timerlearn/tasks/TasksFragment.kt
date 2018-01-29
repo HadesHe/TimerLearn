@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.PopupMenu
 import com.hzjytech.hades.timerlearn.R
 import com.hzjytech.hades.timerlearn.data.Task
 import kotlinx.android.synthetic.main.fragment_tasks.*
@@ -89,10 +90,26 @@ class TasksFragment: Fragment(),TasksContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_clear -> presenter.clearCompletedTasks()
-            R.id.menu_filter -> presenter.showFilteringPopUpMenu()
+            R.id.menu_filter -> showFilteringPopUpMenu()
             R.id.menu_refresh -> presenter.loadTasks(true)
         }
         return true
+    }
+
+    private fun showFilteringPopUpMenu() {
+        PopupMenu(context,activity.findViewById(R.id.menu_filter)).apply {
+            menuInflater.inflate(R.menu.filter_tasks,menu)
+            setOnMenuItemClickListener { item ->
+                when(item.itemId){
+                    R.id.active-> presenter.currentFiltering = TasksFilterType.ACTIVE_TASKS
+                    R.id.completed-> presenter.currentFiltering = TasksFilterType.COMPLETE_TASKS
+                    else -> presenter.currentFiltering=TasksFilterType.ALL_TASKS
+                }
+                presenter.loadTasks(false)
+                true
+            }
+            show()
+        }
     }
 
 
@@ -174,31 +191,45 @@ class TasksFragment: Fragment(),TasksContract.View {
     }
 
     override fun showActiveFilterLable() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        filteringLable.text=resources.getString(R.string.label_active)
     }
 
     override fun showCompletedFilterLable() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        filteringLable.text=resources.getString(R.string.label_completed)
     }
 
     override fun showAllFilterLabel() {
+        filteringLable.text=resources.getString(R)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showNoActiveTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showNoTaksViews(resources.getString(R.string.no_tasks_active),R.drawable.ic_check_circle_24dp,false)
+    }
+
+    private fun showNoTaksViews(mainText: String, iconRes: Int, showAddView: Boolean) {
+        llTasksFrag.visibility=View.GONE
+        llTasksFragNoTasks.visibility=View.VISIBLE
+
+        tvTasksFragNoTasksAll.text=mainText
+        ivTasksFragNoTasks.setImageResource(iconRes)
+
+        tvTasksFragNoTasksAdd.visibility=if(showAddView)View.VISIBLE else View.GONE
+
+
     }
 
     override fun showNoCompletedTasks() {
+        showNoTaksViews(resources.getString(R.string.no_tasks_completed),R.drawable.ic_verified_user_24dp,false)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showNoTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showNoTaksViews(resources.getString(R.string.no_tasks_all),R.drawable.ic_assignment_turned_in_24dp,false)
     }
 
     override fun showAddTask() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("AddEditTaskActivity::class.java")
     }
 
     override fun showTaskDetailsUi(id: String) {
