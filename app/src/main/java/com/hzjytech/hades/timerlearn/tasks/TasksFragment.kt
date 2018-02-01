@@ -3,6 +3,7 @@ package com.hzjytech.hades.timerlearn.tasks
 import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -12,6 +13,7 @@ import android.widget.ListView
 import android.widget.PopupMenu
 import com.hzjytech.hades.timerlearn.R
 import com.hzjytech.hades.timerlearn.data.Task
+import com.hzjytech.hades.timerlearn.util.showSnackBar
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.fragment_tasks.view.*
 import kotlinx.android.synthetic.main.task_item.view.*
@@ -50,7 +52,8 @@ class TasksFragment: Fragment(),TasksContract.View {
         val root = inflater.inflate(R.layout.fragment_tasks, container, false)
 
         with(root) {
-            val listView = findViewById<ListView>(R.id.lvTasksFrag).apply {
+
+            lvTasksFrag.apply {
                 adapter = listAdapter
             }
 
@@ -60,7 +63,7 @@ class TasksFragment: Fragment(),TasksContract.View {
                         ContextCompat.getColor(activity, R.color.colorAccent),
                         ContextCompat.getColor(activity, R.color.colorPrimaryDark)
                 )
-                scrollUpChild = listView
+                scrollUpChild = lvTasksFrag
                 setOnRefreshListener {
                     presenter.loadTasks(false)
                 }
@@ -181,6 +184,7 @@ class TasksFragment: Fragment(),TasksContract.View {
     }
 
     override fun showLoadingTasksError() {
+        showMessage(getString(R.string.loading_tasks_error))
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -199,7 +203,7 @@ class TasksFragment: Fragment(),TasksContract.View {
     }
 
     override fun showAllFilterLabel() {
-        filteringLable.text=resources.getString(R)
+        filteringLable.text=resources.getString(R.string.label_all)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -221,7 +225,6 @@ class TasksFragment: Fragment(),TasksContract.View {
 
     override fun showNoCompletedTasks() {
         showNoTaksViews(resources.getString(R.string.no_tasks_completed),R.drawable.ic_verified_user_24dp,false)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showNoTasks() {
@@ -233,20 +236,27 @@ class TasksFragment: Fragment(),TasksContract.View {
     }
 
     override fun showTaskDetailsUi(id: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("TaskDetailActivity::class.java")
     }
 
     override fun showTaskMarkedComplete() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showMessage(getString(R.string.task_marked_complete))
     }
 
     override fun showTaskMarkedActive() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showMessage(getString(R.string.task_marked_active))
     }
 
     override fun showCompletedTasksCleared() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showMessage(getString(R.string.completed_tasks_cleared))
     }
+
+    private fun showMessage(message: String) {
+        view?.showSnackBar(message,Snackbar.LENGTH_LONG)
+
+    }
+
+
 }
 
 
