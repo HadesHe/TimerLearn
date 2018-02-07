@@ -10,9 +10,9 @@ import java.util.*
  */
 
 @Entity(tableName = "tasks")
-data class Task constructor(
-        @ColumnInfo(name = "title") var title: String = "",
-        @ColumnInfo(name = "description") var description: String = "",
+data class Task (
+        @ColumnInfo(name = "title") var title: String ,
+        @ColumnInfo(name = "description") var description: String,
         @PrimaryKey @ColumnInfo(name = "entryid") var id: String = UUID.randomUUID().toString()
 ) {
     @ColumnInfo(name = "completed") var isCompleted = false

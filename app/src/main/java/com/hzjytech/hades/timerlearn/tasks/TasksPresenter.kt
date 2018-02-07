@@ -136,10 +136,7 @@ class TasksPresenter(val tasksRepository: TasksRepository, val tasksView:TasksCo
         loadTasks(false,false)
     }
 
-    override fun showFilteringPopUpMenu() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    var currentFiltering: TasksFilterType = TasksFilterType.ALL_TASKS
+    override var currentFiltering: TasksFilterType = TasksFilterType.ALL_TASKS
 
 }

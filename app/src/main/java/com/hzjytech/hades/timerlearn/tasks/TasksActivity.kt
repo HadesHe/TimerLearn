@@ -9,7 +9,6 @@ import com.hzjytech.hades.timerlearn.Injection
 import com.hzjytech.hades.timerlearn.R
 import com.hzjytech.hades.timerlearn.util.replaceFragmentInActivity
 import com.hzjytech.hades.timerlearn.util.setupActionBar
-import kotlinx.android.synthetic.main.activity_tasks.*
 
 /**
  * Created by Hades on 2018/1/5.
@@ -17,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_tasks.*
 class TasksActivity : AppCompatActivity() {
 
     private lateinit var tasksPresenter: TasksPresenter
+
+    private lateinit var drawerTasks: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +29,12 @@ class TasksActivity : AppCompatActivity() {
 
         }
 
+        drawerTasks=findViewById<DrawerLayout>(R.id.drawerTasks);
         drawerTasks.apply {
             setStatusBarBackground(R.color.colorPrimaryDark)
 
         }
-        setupDrawerContent(navTasks)
+        setupDrawerContent(findViewById(R.id.navTasks))
         val tasksFragment = supportFragmentManager.findFragmentById(R.id.frameTasks)
                 as TasksFragment? ?: TasksFragment.newInstance().also {
             replaceFragmentInActivity(it,R.id.frameTasks)

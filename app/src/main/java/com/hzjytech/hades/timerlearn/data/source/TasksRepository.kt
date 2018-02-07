@@ -3,13 +3,14 @@ package com.hzjytech.hades.timerlearn.data.source
 import com.hzjytech.hades.timerlearn.data.Task
 import com.hzjytech.hades.timerlearn.data.source.local.TasksLocalDataSource
 import com.hzjytech.hades.timerlearn.data.source.remote.TasksRemoteDataSource
+import java.util.*
 
 /**
  * Created by zhanghehe on 2018/1/16.
  */
 public class TasksRepository(
-        val taskRemoteDataSource: TasksRemoteDataSource,
-        val tasksLocalDataSource: TasksLocalDataSource
+        val taskRemoteDataSource: TasksDataSource,
+        val tasksLocalDataSource: TasksDataSource
 ):TasksDataSource{
     override fun activateTask(taskId: String) {
         getTaskWithId(taskId)?.let {
@@ -21,7 +22,7 @@ public class TasksRepository(
         cacheIsDirty=true
     }
 
-    var cachedTasks:LinkedHashMap<String,Task> = LinkedHashMap()
+    var cachedTasks: LinkedHashMap<String, Task> = LinkedHashMap()
 
     var cacheIsDirty=false
 
@@ -172,8 +173,8 @@ public class TasksRepository(
          * *
          * @return the [TasksRepository] instance
          */
-        @JvmStatic fun getInstance(tasksRemoteDataSource: TasksRemoteDataSource,
-                                   tasksLocalDataSource: TasksLocalDataSource): TasksRepository {
+        @JvmStatic fun getInstance(tasksRemoteDataSource: TasksDataSource,
+                                   tasksLocalDataSource: TasksDataSource): TasksRepository {
             return INSTANCE ?: TasksRepository(tasksRemoteDataSource, tasksLocalDataSource)
                     .apply { INSTANCE = this }
         }

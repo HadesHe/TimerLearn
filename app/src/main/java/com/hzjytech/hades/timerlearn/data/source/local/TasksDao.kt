@@ -17,15 +17,15 @@ import com.hzjytech.hades.timerlearn.data.Task
 
     @Update fun updateTask(task: Task):Int
 
-    @Query("update tasks set completed=: completed where entryid=:taskId")
+    @Query("update Tasks set completed = :completed where entryid = :taskId")
     fun updateCompleted(taskId:String,completed:Boolean)
 
-    @Query("delete from tasks where entryid=taskId")
+    @Query("delete from Tasks where entryid= :taskId")
     fun deleteTaskById(taskId: String):Int
 
-    @Query("delete from tasks")
+    @Query("delete from Tasks")
     fun deleteTasks()
 
-    @Query("delete from tasks where completed=1")
+    @Query("delete from Tasks where completed=1")
     fun deleteCompletedTasks():Int
 }
