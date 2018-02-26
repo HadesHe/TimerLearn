@@ -2,6 +2,7 @@
 ext {
     roomVersion="1.0.0-alpha9-1"
     espressoVersion="3.0.1"
+    mockitoVersion = '2.8.47'
 }
 buildscript {
     ext.kotlin_version = '1.2.21'
